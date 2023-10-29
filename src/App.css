@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+.input-msg-container{
+  height: 10%;
+  border: 1px solid #999;
+  border-radius: 10px;
+  position: relative;
+  padding: 0.2em 0.5em;
+}
+
+.input-msg{
+  flex-grow: 1;
+  border: 0;
+  height: 90%;
+  width: 95%;
+}
+.input-msg:focus-visible{
+  border: 0px;
+  outline: none;
+}
+.input-msg-enter{
+  width: 40px;
+  height: 80%;
+  font-size: 30px;
+  margin-left: 1em;
+}
