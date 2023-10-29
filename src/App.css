@@ -61,3 +61,37 @@
   font-size: 30px;
   margin-left: 1em;
 }
+
+.standalone-table-container {
+  width: 100%;
+  display: block;
+  min-height: 100%;
+  height: 0px;
+  overflow-y: scroll;
+}
+
+.rcv-msg-container::-webkit-scrollbar {
+  width: 0.5em;
+
+}
+.rcv-msg-container::-webkit-scrollbar-track {
+  color: green;
+  background-color: #DDD;
+  border-radius: 10px;
+}
+.rcv-msg-container::-webkit-scrollbar-thumb {
+  background-color: darkgrey;  
+  border-radius: 10px;
+}
+
+.spinner {
+  animation: spin infinite 5s linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
