@@ -7,15 +7,23 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareCaretRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-
+const AUTHOR = { ME: 'ME', BOT: 'BOT' } 
 const AppId = () => {
   const [showHideChat, setShowHideChat ] = useState(false)
   const [showChat, setShowChat ] = useState(false)
   const [loading, setLoading ] = useState(false)
-  const [rcvMsgList, setRcvMsgList ] = useState([])
-  const sendMessage = async () => {
+  const [messageList, setMessageList ] = useState([])
+  const [ message, setMessage ] = useState('')
+
+  const sendMessage = async (message) => {
+    const messageListLocal = [...messageList]
+    messageListLocal.push({author: AUTHOR.ME, message })
+    setMessageList([...messageListLocal ])
+
+    // Do not launch multiple calls
+    if( loading ) return
     setLoading(true)
     const body = {
       data: {
@@ -28,11 +36,51 @@ const AppId = () => {
     }
     const response = await axios.post('https://testapis-f02f03987a59.herokuapp.com/api/recommendation', body)    
     const response_body = JSON.parse(response.data.data.attributes.body)
-    setRcvMsgList([...rcvMsgList, response_body.recommendation])
+    messageListLocal.push({author: AUTHOR.BOT, message: response_body.recommendation})
+    
+    // messageListLocal.push({author: AUTHOR.BOT, message: "ISay"})
+    // console.log("messageListLocalAfter ", messageList)
+
+    setMessageList(messageListLocal)
     setLoading(false)
   }
 
 
+  const onHideChat = () => {
+    setShowHideChat(true)
+    setShowChat(false)
+    setTimeout( () => {
+      setShowHideChat(false)
+    }, 200)
+  }
+
+  const onKeyDownMessage = (e) => {
+    if( e.key === 'Enter'){
+      setMessage('')            
+      sendMessage(message)
+    }
+  }
+
+  const onClickSendMessage = () => {
+    setMessage('')        
+    sendMessage(message)
+  }
+
+  const getClass = () => {
+
+    if( showChat === true )
+      return 'show-chat d-flex flex-column chat-container'
+
+    if( showChat === false ){
+      if (showHideChat === true){
+        return 'hide-chat d-flex flex-column chat-container'
+      }else{
+        return 'd-none'
+      }
+    }
+  }
+
+  console.log("messageList ", messageList)
 
   return <>
             <section role="button" className={showChat?'d-none':'chat-icon'}
@@ -40,18 +88,23 @@ const AppId = () => {
               <img src={logomin} alt=""></img>
             </section>  
 
-            <section className={showChat?'show-chat d-flex flex-column chat-container':'d-none'}>
+            <section className={getClass()}>
 
               <div className='d-flex align-items-center'>
                 <div className='flex-grow-1 text-center'>
                   <img src={logo} height={40} width={130} alt=''></img>
                 </div>
-                <FontAwesomeIcon role='button' icon={faTimes}  onClick={() => setShowChat(false)}/>
+                <FontAwesomeIcon role='button' icon={faTimes}  onClick={() => onHideChat()}/>
               </div>
               <div className='flex-grow-1 mt-3 mb-3 rcv-msg-container' style={{ overflowY: 'auto'}}>
                 
-                {rcvMsgList.map( (item,idx) =>
-                <p key={idx}>{item}</p>)}
+                {messageList.map( (item,idx) =>
+                <div key={idx} className='mt-3 pe-2'>
+                  <div className={`w-100 ${item.author === AUTHOR.BOT?'text-end':'text-start'}`}>
+                    <b>{item.author.toLowerCase()} says:</b>
+                  </div>
+                  <div style={{ textAlign:'justify' }} key={idx}>{item.message}</div>
+                </div>)}
 
               </div>
               {loading?
@@ -60,9 +113,12 @@ const AppId = () => {
               </div>
               :null}
               <div className='d-flex align-items-center justify-content-center input-msg-container'>
-                <input className="input-msg" type="text" />
+                <input value={message}
+                  className="input-msg" type="text" 
+                  onChange={(e) => setMessage(e.target.value)} 
+                  onKeyDown={(e) => onKeyDownMessage(e)}/>
                 
-                <div className="d-flex align-items-center input-msg-enter"  role='button' onClick={() => sendMessage()}>
+                <div className="d-flex align-items-center input-msg-enter"  role='button' onClick={() => onClickSendMessage()}>
                   <FontAwesomeIcon icon={faSquareCaretRight} />              
                 </div>
 
