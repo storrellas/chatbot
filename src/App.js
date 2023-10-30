@@ -31,46 +31,47 @@ const AppId = () => {
     setLoading(false)
   }
 
-  // Hide chat if required
-  if( showChat === false)
-    return  <section role="button" style={{ position: 'fixed', bottom: "20px", right: "20px", fontSize: '40px'}} onClick={() => setShowChat(true)}>
+
+  return <>
+            <section role="button" className={showChat?'d-none':''} style={{ position: 'fixed', bottom: "20px", right: "20px", fontSize: '40px'}} onClick={() => setShowChat(true)}>
               <img src={logomin} alt=""></img>
-            </section>           
+            </section>  
 
+            <section className={showChat?'':'d-none'} style={{ 
+              position: 'fixed', bottom: "20px", right: "20px", 
+              background: 'white', height: "600px", width: '400px', border: '1px solid #999', borderRadius: '10px',
+              padding: '1em', display: 'flex', flexDirection: 'column'
+              }}>
 
-  return <section style={{ 
-      position: 'fixed', bottom: "20px", right: "20px", 
-      background: 'white', height: "600px", width: '400px', border: '1px solid #999', borderRadius: '10px',
-      padding: '1em', display: 'flex', flexDirection: 'column'
-      }}>
+              <div className='d-flex align-items-center'>
+                <div className='flex-grow-1 text-center'>
+                  <img src={logo} height={40} width={130} alt=''></img>
+                </div>
+                <FontAwesomeIcon role='button' icon={faTimes}  onClick={() => setShowChat(false)}/>
+              </div>
+              <div className='flex-grow-1 mt-3 mb-3 rcv-msg-container' style={{ overflowY: 'auto'}}>
+                
+                {rcvMsgList.map( (item,idx) =>
+                <p key={idx}>{item}</p>)}
 
-          <div className='d-flex align-items-center'>
-            <div className='flex-grow-1 text-center'>
-              <img src={logo} height={40} width={130} alt=''></img>
-            </div>
-            <FontAwesomeIcon role='button' icon={faTimes}  onClick={() => setShowChat(false)}/>
-          </div>
-          <div className='flex-grow-1 mt-3 mb-3 rcv-msg-container' style={{ overflowY: 'auto'}}>
-            
-            {rcvMsgList.map( (item,idx) =>
-             <p key={idx}>{item}</p>)}
+              </div>
+              {loading?
+              <div className="d-flex justify-content-end align-items-end">
+                <img src={spinner} alt="" style={{ height: '60px'}}></img>
+              </div>
+              :null}
+              <div className='d-flex align-items-center justify-content-center input-msg-container'>
+                <input className="input-msg" type="text" />
+                
+                <div className="d-flex align-items-center input-msg-enter"  role='button' onClick={() => sendMessage()}>
+                  <FontAwesomeIcon icon={faSquareCaretRight} />              
+                </div>
 
-          </div>
-          {loading?
-          <div className="d-flex justify-content-end align-items-end">
-            <img src={spinner} alt="" style={{ height: '60px'}}></img>
-          </div>
-          :null}
-          <div className='d-flex align-items-center justify-content-center input-msg-container'>
-            <input className="input-msg" type="text" />
-            
-            <div className="d-flex align-items-center input-msg-enter"  role='button' onClick={() => sendMessage()}>
-              <FontAwesomeIcon icon={faSquareCaretRight} />              
-            </div>
+              </div>
 
-          </div>
+            </section>
 
-        </section>
+        </>
 }
 
 
