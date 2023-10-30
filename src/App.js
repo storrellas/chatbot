@@ -11,6 +11,7 @@ import { useState } from 'react';
 
 
 const AppId = () => {
+  const [showHideChat, setShowHideChat ] = useState(false)
   const [showChat, setShowChat ] = useState(false)
   const [loading, setLoading ] = useState(false)
   const [rcvMsgList, setRcvMsgList ] = useState([])
@@ -32,16 +33,14 @@ const AppId = () => {
   }
 
 
+
   return <>
-            <section role="button" className={showChat?'d-none':''} style={{ position: 'fixed', bottom: "20px", right: "20px", fontSize: '40px'}} onClick={() => setShowChat(true)}>
+            <section role="button" className={showChat?'d-none':'chat-icon'}
+              onClick={() => setShowChat(true)}>
               <img src={logomin} alt=""></img>
             </section>  
 
-            <section className={showChat?'show-chat':'d-none'} style={{ 
-              position: 'fixed', bottom: "20px", right: "20px", 
-              background: 'white', height: "600px", width: '400px', border: '1px solid #999', borderRadius: '10px',
-              padding: '1em', display: 'flex', flexDirection: 'column'
-              }}>
+            <section className={showChat?'show-chat d-flex flex-column chat-container':'d-none'}>
 
               <div className='d-flex align-items-center'>
                 <div className='flex-grow-1 text-center'>
