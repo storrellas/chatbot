@@ -5,7 +5,7 @@ import logomin from './assets/logomin.png'
 import spinner from './assets/spinner.svg';
 import "bootstrap/dist/css/bootstrap.min.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareCaretRight, faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSquareCaretRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -37,7 +37,7 @@ const AppId = () => {
               <img src={logomin} alt=""></img>
             </section>  
 
-            <section className={showChat?'':'d-none'} style={{ 
+            <section className={showChat?'show-chat':'d-none'} style={{ 
               position: 'fixed', bottom: "20px", right: "20px", 
               background: 'white', height: "600px", width: '400px', border: '1px solid #999', borderRadius: '10px',
               padding: '1em', display: 'flex', flexDirection: 'column'

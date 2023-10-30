@@ -96,14 +96,16 @@
   }
 }
 
-.show{
-  animation: expand 3s;
+.show-chat{
+  animation: main 0.3s;
 }
 @keyframes main {
   0% {
-    transform: scale(0);
+    width: 0;
+    height: 0;
   }
   100% {
-    transform: scale(1);
+    width: 400px;
+    height: 600px;
   }
 }
