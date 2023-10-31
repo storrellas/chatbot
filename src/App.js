@@ -88,7 +88,7 @@ const AppId = () => {
               <img src={logomin} alt=""></img>
             </section>  
 
-            <section className={getClass()}>
+            <section className={getClass()} style={{ maxWidth: "90%", maxHeight: "90%"}}>
 
               <div className='d-flex align-items-center'>
                 <div className='flex-grow-1 text-center'>
