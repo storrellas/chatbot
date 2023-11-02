@@ -19,7 +19,7 @@ const AppId = () => {
 
   const sendMessage = async (message) => {
     const messageListLocal = [...messageList]
-    messageListLocal.push({author: AUTHOR.ME, message })
+    messageListLocal.push({author: AUTHOR.ME, name: 'Me', message })
     setMessageList([...messageListLocal ])
 
     // Do not launch multiple calls
@@ -29,14 +29,14 @@ const AppId = () => {
       data: {
         type: "recommendation",
         attributes: {
-          product_type: "Can you recommend me a good pair of racing shoes",
-          meta_info: ""
+          product_type: message,
+          conversation_history: []
         }
       }
     }
-    const response = await axios.post('https://testapis-f02f03987a59.herokuapp.com/api/recommendation', body)    
-    const response_body = JSON.parse(response.data.data.attributes.body)
-    messageListLocal.push({author: AUTHOR.BOT, message: response_body.recommendation})
+    const response = await axios.post('https://apid.duckdns.org/api/chat', body)    
+    const json_response = response.data.data.attributes
+    messageListLocal.push({author: AUTHOR.BOT, message: json_response.body, name: json_response.name})
     
     // messageListLocal.push({author: AUTHOR.BOT, message: "ISay"})
     // console.log("messageListLocalAfter ", messageList)
@@ -101,7 +101,7 @@ const AppId = () => {
                 {messageList.map( (item,idx) =>
                 <div key={idx} className='mt-3 pe-2'>
                   <div className={`w-100 ${item.author === AUTHOR.BOT?'text-end':'text-start'}`}>
-                    <b>{item.author.toLowerCase()} says:</b>
+                    <b>{item.name} says:</b>
                   </div>
                   <div style={{ textAlign:'justify' }} key={idx}>{item.message}</div>
                 </div>)}
