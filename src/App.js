@@ -25,12 +25,14 @@ const AppId = () => {
     // Do not launch multiple calls
     if( loading ) return
     setLoading(true)
+    const conversation_history = messageListLocal.map( item => item.message)
+    conversation_history.pop()
     const body = {
       data: {
         type: "recommendation",
         attributes: {
           product_type: message,
-          conversation_history: []
+          conversation_history
         }
       }
     }
