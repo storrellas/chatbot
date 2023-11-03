@@ -36,7 +36,9 @@ const AppId = () => {
         }
       }
     }
-    const response = await axios.post('https://apid.duckdns.org/api/chat', body)    
+    const base_url = window.base_url?window.base_url:"https://apid.duckdns.org"
+
+    const response = await axios.post(`${base_url}/api/chat`, body)    
     const json_response = response.data.data.attributes
     messageListLocal.push({author: AUTHOR.BOT, message: json_response.body, name: json_response.name})
     

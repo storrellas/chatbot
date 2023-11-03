@@ -42,6 +42,14 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
     <p>Template by w3.css</p>
   </div>
 
+  <div>
+    <label>BASE_URL</label>
+    <select id="base-url">
+      <option>https://apid.duckdns.org</option>
+      <option>https://testapis-f02f03987a59.herokuapp.com/api/recommendation</option>
+    </select>
+  </div>
+
   <!-- Slideshow -->
   <div class="w3-container">
     <div class="w3-display-container mySlides">
@@ -280,7 +288,11 @@ function showDivs(n) {
 </script>
 <script defer="">
   document.addEventListener("DOMContentLoaded", function () {
-      window.render("#root");
+    window.render("#root");
+    window.base_url = document.querySelector('#base-url').value
+      document.querySelector('#base-url').addEventListener('change',function(){
+        window.base_url = this.value
+      });
   });
 </script>
 </body>

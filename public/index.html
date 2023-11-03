@@ -28,8 +28,19 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <h1>Page Title</h1>  
-    <img src='https://upload.wikimedia.org/wikipedia/en/b/b3/Tintin-mainCast.png'></img>
+    <h1>APID Testing Page</h1>  
+
+    <div>
+      <label>BASE_URL</label>
+      <select id="base-url">
+        <option>https://apid.duckdns.org</option>
+        <option>https://testapis-f02f03987a59.herokuapp.com/api/recommendation</option>
+      </select>
+    </div>
+    
+    <div>
+      <img src='https://upload.wikimedia.org/wikipedia/en/b/b3/Tintin-mainCast.png'></img>
+    </div>
 
 
 
@@ -95,6 +106,11 @@
       document.addEventListener("DOMContentLoaded", function() {
         console.log("rendering after")
         window.render("#root")
+
+        window.base_url = document.querySelector('#base-url').value
+        document.querySelector('#base-url').addEventListener('change',function(){
+          window.base_url = this.value
+        });
       });
    
     </script>
