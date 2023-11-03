@@ -84,7 +84,6 @@ const AppId = () => {
     }
   }
 
-  console.log("messageList ", messageList)
 
   return <>
             <section role="button" className={showChat?'d-none':'chat-icon'}
