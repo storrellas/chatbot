@@ -5,7 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const render = (container) => {
-  const root = ReactDOM.createRoot(document.querySelector(container));
+  var iDiv = document.createElement('div');
+  iDiv.id = 'apid';
+  iDiv.className = 'apid';
+  document.getElementsByTagName('body')[0].appendChild(iDiv);
+
+  const root = ReactDOM.createRoot(document.querySelector('#apid'));
   root.render(
     <React.StrictMode>
       <App />

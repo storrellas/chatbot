@@ -85,7 +85,7 @@ const AppId = () => {
   }
 
 
-  return <>
+  return <div style={{ position: 'relative' }}>
             <section role="button" className={showChat?'d-none':'chat-icon'}
               onClick={() => setShowChat(true)}>
               <img src={logomin} alt=""></img>
@@ -129,7 +129,7 @@ const AppId = () => {
 
             </section>
 
-        </>
+        </div>
 }
 
 
